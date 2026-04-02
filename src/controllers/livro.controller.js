@@ -1,8 +1,9 @@
 const livrosService = require('../services/livro.service');
 
 // GET /livros — Lista todos os livros
-const listarLivros = async (req, res) => {
+const listarLivros = async (req, res, next) => {
   try {
+    return next(new Eror('Erro de teste'));
     const livros = await livrosService.listarTodosLivros();
     res.status(200).json({ total: livros.length, livros });
   } catch (erro) {
