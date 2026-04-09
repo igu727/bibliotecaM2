@@ -1,27 +1,15 @@
-const acervo = [
-  {
-    id: 1,
-    titulo: 'O Senhor dos Anéis',
-    autor: 'J.R.R. Tolkien',
-    disponivel: true,
-  },
-  {
-    id: 2,
-    titulo: 'Altered Carbon',
-    autor: 'Richard K. Morgan',
-    disponivel: false,
-  },
-  {
-    id: 3,
-    titulo: "Assassin's Creed",
-    autor: 'Oliver Bowden',
-    disponivel: true,
-  },
-];
+const pool = require('../database/connection');
+
 
 // Lista todos os livros do acervo
 const listarTodosLivros = async () => {
-  return acervo;
+  try {
+    const resultado = await pool.query('SELECT * FROM livros ORER BY id');
+    return resultado.rows;
+  } catch (error) {
+    console.log('Erro ao listar todos os livros', error.message);
+    throw error;
+  }
 };
 
 // Busca um livro específico pelo ID
